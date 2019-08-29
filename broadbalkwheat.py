@@ -4,9 +4,14 @@ Created on 22 Aug 2017
 @author: ostlerr
 '''
 from datapackage import Package
+import json
 
 package = Package()
-package.infer('Hackathon data/BroadbalkWheatData/broadbalkWheatData.csv')
+package.schema
+package.infer('data/broadbalkWheatData.csv')
+#package.descriptor['@context']='https://schema.org/'
+#package.descriptor['@type']='Dataset'
+#print(package.descriptor)
 
 package.descriptor['resources'][0]['schema']['fields'][0]['type']='year'
 package.descriptor['resources'][0]['schema']['fields'][0]['description']='year of harvest'
@@ -18,13 +23,14 @@ package.descriptor['resources'][0]['schema']['fields'][2]['type']='string'
 package.descriptor['resources'][0]['schema']['fields'][2]['description']='the experiment section'
 
 package.descriptor['resources'][0]['schema']['fields'][3]['type']='number'
-package.descriptor['resources'][0]['schema']['fields'][3]['description']='number of years since last non wheat crop    '
+package.descriptor['resources'][0]['schema']['fields'][3]['description']='number of years since last non wheat crop'
 
 package.descriptor['resources'][0]['schema']['fields'][4]['type']='string'
 package.descriptor['resources'][0]['schema']['fields'][4]['description']='the previous years crop'
 
 package.descriptor['resources'][0]['schema']['fields'][5]['type']='string'
 package.descriptor['resources'][0]['schema']['fields'][5]['description']='the wheat variety grown'
+package.descriptor['resources'][0]['schema']['fields'][5]['rdfType']='http://aims.fao.org/aos/agrovoc/c_8157'
 
 package.descriptor['resources'][0]['schema']['fields'][6]['type']='string'
 package.descriptor['resources'][0]['schema']['fields'][6]['description']='the fertilizer code - see columns for rates'
@@ -34,6 +40,7 @@ package.descriptor['resources'][0]['schema']['fields'][7]['description']='number
 
 package.descriptor['resources'][0]['schema']['fields'][8]['type']='number'
 package.descriptor['resources'][0]['schema']['fields'][8]['description']='total kg N/ha applied'
+package.descriptor['resources'][0]['schema']['fields'][8]['rdfType']='http://purl.obolibrary.org/obo/PECO_0007102'
 
 package.descriptor['resources'][0]['schema']['fields'][9]['type']='number'
 package.descriptor['resources'][0]['schema']['fields'][9]['description']='total kg P/ha applied'
@@ -64,6 +71,7 @@ package.descriptor['resources'][0]['schema']['fields'][17]['description']='Hecto
 
 package.descriptor['resources'][0]['schema']['fields'][18]['type']='number'
 package.descriptor['resources'][0]['schema']['fields'][18]['description']='Thousand grain weight in grams'
+package.descriptor['resources'][0]['schema']['fields'][18]['rdfType']='http://purl.obolibrary.org/obo/TO_0000382'
 
 package.descriptor['resources'][0]['schema']['fields'][19]['type']='number'
 package.descriptor['resources'][0]['schema']['fields'][19]['description']='% N in grain'
@@ -97,6 +105,9 @@ package.descriptor['publishers']=[publisher]
 package.descriptor['maintainers']=[maintainer]
 package.descriptor['contributors']=[contributor]
 package.descriptor['sources']=[source]
+
+spatialCoverage = {'@type':'Place','geo':{'@type':'GeoCoordinates','latitude':'51.809450','longitude':'-0.372898'}}
+package.descriptor['spatialCoverage']=spatialCoverage
 package.descriptor['latitude']='51.809450'
 package.descriptor['longitude']='-0.372898'
 package.descriptor['altitude']='130'
